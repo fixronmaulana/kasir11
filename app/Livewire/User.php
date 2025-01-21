@@ -69,4 +69,40 @@ class User extends Component
         $this->penggunaTerpilih->delete();
         $this->reset();
     }
+
+    public function pilihEdit($id)
+    {
+        $this->penggunaTerpilih = ModelUser::findOrFail($id);
+        $this->nama = $this->penggunaTerpilih->name;
+        $this->email = $this->penggunaTerpilih->email;
+        $this->peran = $this->penggunaTerpilih->peran;
+        $this->pilihanMenu = 'edit';
+    }
+
+    public function simpanEdit()
+    {
+        $this->validate([
+            'nama' => 'required',
+            'email' => 'required|email|unique:users,email,'.$this->penggunaTerpilih->id,
+            'peran' => 'required',
+        ],[
+            'nama.required' => 'Nama harus diisi',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format musti email',
+            'email.unique' => 'Email telah digunakan',
+            'peran.required' => 'Peran harus dipilih',
+        ]);
+
+        $simpan = $this->penggunaTerpilih;
+        $simpan->name = $this->nama;
+        $simpan->email = $this->email;
+        if($this->password) {
+            $simpan->password =bcrypt($this->peran);
+        }
+        $simpan->peran = $this->peran;
+        $simpan->save();
+
+        $this->reset(['nama', 'email', 'password', 'peran', 'penggunaTerpilih']);
+        $this->pilihanMenu = 'lihat';
+    }
 }

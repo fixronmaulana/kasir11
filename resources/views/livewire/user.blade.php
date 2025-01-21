@@ -41,7 +41,7 @@
                                             <td>{{ $pengguna->email }}</td>
                                             <td>{{ $pengguna->peran }}</td>
                                             <td>
-                                                <button wire:click="pilihMenu('edit')"
+                                                <button wire:click="pilihEdit({{ $pengguna->id }})"
                                                     class="btn {{ $pilihanMenu == 'edit' ? 'btn-primary' : 'btn-outline-primary' }}">
                                                     Edit Pengguna
                                                 </button>
@@ -64,21 +64,24 @@
                         <div class="card-body">
                             <form action="" wire:submit='simpan'>
                                 <label for="">Nama</label>
-                                <input type="text" class="form-control" wire:model='nama' name="" id="">
+                                <input type="text" class="form-control" wire:model='nama' name=""
+                                    id="">
                                 @error('nama')
-                                <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
                                 <label for="">Email</label>
-                                <input type="email" class="form-control" wire:model='email' name="" id="">
+                                <input type="email" class="form-control" wire:model='email' name=""
+                                    id="">
                                 @error('email')
-                                <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
                                 <label for="">Password</label>
-                                <input type="password" class="form-control" wire:model='password' name="" id="">
+                                <input type="password" class="form-control" wire:model='password' name=""
+                                    id="">
                                 @error('password')
-                                <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
                                 <label for="">Peran</label>
@@ -88,7 +91,7 @@
                                     <option value="admin">Admin</option>
                                 </select>
                                 @error('peran')
-                                <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
                                 <button type="submit" class="btn btn-primary mt-3">Simpan</button>
@@ -101,7 +104,41 @@
                             Edit Pengguna
                         </div>
                         <div class="card-body">
-                            test
+                            <form action="" wire:submit='simpanEdit'>
+                                <label for="">Nama</label>
+                                <input type="text" class="form-control" wire:model='nama' name=""
+                                    id="">
+                                @error('nama')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <label for="">Email</label>
+                                <input type="email" class="form-control" wire:model='email' name=""
+                                    id="">
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" wire:model='password' name=""
+                                    id="">
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <label for="">Peran</label>
+                                <select name="" id="" class="form-control" wire:model='peran'>
+                                    <option>--Pilih peran--</option>
+                                    <option value="kasir">Kasir</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                @error('peran')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+                                <button type="button" class="btn btn-secondary mt-3" wire:click='batal'>Batal</button>
+                            </form>
                         </div>
                     </div>
                 @elseif ($pilihanMenu == 'hapus')
