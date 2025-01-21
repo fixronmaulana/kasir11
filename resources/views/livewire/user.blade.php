@@ -147,8 +147,8 @@
                             Hapus Pengguna
                         </div>
                         <div class="card-body">
-                            Anda yakin akan mengahapus Pengguna ini ?
-                            <p>Nama: {{ $penggunaTerpilih->name }}</p>
+                            Anda yakin akan menghapus Pengguna ini ?
+                            <p>Nama: {{ $produkTerpilih->name }}</p>
                             <button class="btn btn-danger" wire:click='hapus'>Hapus</button>
                             <button class="btn btn-secondary" wire:click='batal'>Batal</button>
                         </div>

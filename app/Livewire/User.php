@@ -12,7 +12,7 @@ class User extends Component
     public $email;
     public $password;
     public $peran;
-    public $penggunaTerpilih;
+    public $produkTerpilih;
 
 
     public function pilihMenu($menu)
@@ -55,7 +55,7 @@ class User extends Component
 
     public function pilihHapus($id)
     {
-        $this->penggunaTerpilih = ModelUser::findOrFail($id);
+        $this->produkTerpilih = ModelUser::findOrFail($id);
         $this->pilihanMenu = 'hapus';
     }
 
@@ -66,16 +66,16 @@ class User extends Component
 
     public function hapus()
     {
-        $this->penggunaTerpilih->delete();
+        $this->produkTerpilih->delete();
         $this->reset();
     }
 
     public function pilihEdit($id)
     {
-        $this->penggunaTerpilih = ModelUser::findOrFail($id);
-        $this->nama = $this->penggunaTerpilih->name;
-        $this->email = $this->penggunaTerpilih->email;
-        $this->peran = $this->penggunaTerpilih->peran;
+        $this->produkTerpilih = ModelUser::findOrFail($id);
+        $this->nama = $this->produkTerpilih->name;
+        $this->email = $this->produkTerpilih->email;
+        $this->peran = $this->produkTerpilih->peran;
         $this->pilihanMenu = 'edit';
     }
 
@@ -83,7 +83,7 @@ class User extends Component
     {
         $this->validate([
             'nama' => 'required',
-            'email' => 'required|email|unique:users,email,'.$this->penggunaTerpilih->id,
+            'email' => 'required|email|unique:users,email,'.$this->produkTerpilih->id,
             'peran' => 'required',
         ],[
             'nama.required' => 'Nama harus diisi',
@@ -93,7 +93,7 @@ class User extends Component
             'peran.required' => 'Peran harus dipilih',
         ]);
 
-        $simpan = $this->penggunaTerpilih;
+        $simpan = $this->produkTerpilih;
         $simpan->name = $this->nama;
         $simpan->email = $this->email;
         if($this->password) {
@@ -102,7 +102,7 @@ class User extends Component
         $simpan->peran = $this->peran;
         $simpan->save();
 
-        $this->reset(['nama', 'email', 'password', 'peran', 'penggunaTerpilih']);
+        $this->reset(['nama', 'email', 'password', 'peran', 'produkTerpilih']);
         $this->pilihanMenu = 'lihat';
     }
 }
