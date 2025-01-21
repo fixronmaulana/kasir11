@@ -62,7 +62,37 @@
                             Tambah Pengguna
                         </div>
                         <div class="card-body">
-                            test
+                            <form action="" wire:submit='simpan'>
+                                <label for="">Nama</label>
+                                <input type="text" class="form-control" wire:model='nama' name="" id="">
+                                @error('nama')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <label for="">Email</label>
+                                <input type="email" class="form-control" wire:model='email' name="" id="">
+                                @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" wire:model='password' name="" id="">
+                                @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <label for="">Peran</label>
+                                <select name="" id="" class="form-control" wire:model='peran'>
+                                    <option>--Pilih peran--</option>
+                                    <option value="kasir">Kasir</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                @error('peran')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <br>
+                                <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+                            </form>
                         </div>
                     </div>
                 @elseif ($pilihanMenu == 'edit')
