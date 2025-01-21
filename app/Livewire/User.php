@@ -12,6 +12,7 @@ class User extends Component
     public $email;
     public $password;
     public $peran;
+    public $penggunaTerpilih;
 
 
     public function pilihMenu($menu)
@@ -50,5 +51,22 @@ class User extends Component
 
         $this->reset(['nama', 'email', 'password', 'peran']);
         $this->pilihanMenu = 'lihat';
+    }
+
+    public function pilihHapus($id)
+    {
+        $this->penggunaTerpilih = ModelUser::findOrFail($id);
+        $this->pilihanMenu = 'hapus';
+    }
+
+    public function batal()
+    {
+        $this->reset();
+    }
+
+    public function hapus()
+    {
+        $this->penggunaTerpilih->delete();
+        $this->reset();
     }
 }
