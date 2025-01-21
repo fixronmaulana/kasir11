@@ -78,26 +78,25 @@ class Produk extends Component
     {
         $this->validate([
             'nama' => 'required',
-            'kode' => 'required|kode|unique:users,kode,'.$this->produkTerpilih->id,
+            'kode' => 'required|unique:produks,kode,'.$this->produkTerpilih->id,
             'harga' => 'required',
+            'stok' => 'required'
         ],[
             'nama.required' => 'Nama harus diisi',
             'kode.required' => 'Kode harus diisi',
-            'kode.kode' => 'Format musti kode',
             'kode.unique' => 'Kode telah digunakan',
-            'harga.required' => 'Peran harus dipilih',
+            'harga.required' => 'Harga harus diisi',
+            'stok.required' => 'Stok harus diisi'
         ]);
 
         $simpan = $this->produkTerpilih;
         $simpan->nama = $this->nama;
         $simpan->kode = $this->kode;
-        if($this->stok) {
-            $simpan->stok =bcrypt($this->harga);
-        }
+        $simpan->stok =$this->stok;
         $simpan->harga = $this->harga;
         $simpan->save();
 
-        $this->reset(['nama', 'kode', 'stok', 'harga', 'produkTerpilih']);
+        $this->reset();
         $this->pilihanMenu = 'lihat';
     }
 

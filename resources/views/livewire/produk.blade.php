@@ -111,27 +111,24 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
-                                <label for="">Email</label>
-                                <input type="email" class="form-control" wire:model='email' name=""
+                                <label for="">Kode / Barcode</label>
+                                <input type="text" class="form-control" wire:model='kode' name=""
                                     id="">
-                                @error('email')
+                                @error('kode')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
-                                <label for="">Password</label>
-                                <input type="password" class="form-control" wire:model='password' name=""
+                                <label for="">Harga</label>
+                                <input type="number" class="form-control" wire:model='harga' name=""
                                     id="">
-                                @error('password')
+                                @error('harga')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
-                                <label for="">Peran</label>
-                                <select name="" id="" class="form-control" wire:model='peran'>
-                                    <option>--Pilih peran--</option>
-                                    <option value="kasir">Kasir</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                                @error('peran')
+                                <label for="">Stok</label>
+                                <input type="number" class="form-control" wire:model='stok' name=""
+                                id="">
+                                @error('stok')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <br>
