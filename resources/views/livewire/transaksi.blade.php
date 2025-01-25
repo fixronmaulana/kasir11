@@ -2,16 +2,21 @@
     <div class="container">
         <div class="row mt-2">
             <div class="col-12">
-                <button class="btn btn-primary">Transaksi Baru</button>
-                <button class="btn btn-secondary">Batalkan Transaksi</button>
+                @if(!$transaksiAktif)
+                <button class="btn btn-primary" wire:click = 'transaksiBaru'>Transaksi Baru</button>
+                @else
+                <button class="btn btn-secondary" wire:click = 'batalTransaksi'>Batalkan Transaksi</button>
+                @endif
                 <button class="btn btn-info" wire:loading>Loading..</button>
             </div>
         </div>
+        @if ($transaksiAktif)
         <div class="row mt-2">
             <div class="col-8">
                 <div class="card border-primary">
                     <div class="card-body">
-                        <h4 class="card-title">No Invoice : </h4>
+                        <h4 class="card-title">No Invoice : {{ $transaksiAktif->kode }} </h4>
+                        <input type="text" name="" id="" class="form-control" placeholder="No Invoice" wire:model.live='kode'>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -25,7 +30,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach ($semuaProduk as $produk )
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $produk->produk->kode }}</td>
+                                        <td>{{ $produk->produk->nama }}</td>
+                                        <td>{{ number_format    ($produk->produk->harga, 2, '.', ',') }}</td>
+                                        <td>
+                                            {{ $produk->jumlah }}
+                                        </td>
+                                        <td>{{ number_format($produk->produk->harga * $produk->jumlah, 2, '.', ',') }}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger" wire:click='hapusProduk({{ $produk->id }})'>Hapus</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -37,14 +57,14 @@
                         <h4 class="card-title">Total Biaya</h4>
                         <div class="d-flex justify-content-between">
                             <span>Rp. </span>
-                            <span>{{ number_format('9898988', 2, '.', ',') }}</span>
+                            <span>{{ number_format($totalSemuaBelanja, 2, '.', ',') }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="card border-primary mt-2">
                     <div class="card-body">
                         <h4 class="card-title">Bayar</h4>
-                        <input type="number" class="form-control" placeholder="Bayar">
+                        <input type="number" class="form-control" placeholder="Bayar" wire:model.live='bayar'>
                     </div>
                 </div>
                 <div class="card border-primary mt-2">
@@ -52,12 +72,21 @@
                         <h4 class="card-title">Kembalian</h4>
                         <div class="d-flex justify-content-between">
                             <span>Rp. </span>
-                            <span>{{ number_format('9898988', 2, '.', ',') }}</span>
+                            <span>{{ number_format($kembalian, 2, '.', ',') }}</span>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success w-100 mt-2">Bayar</button>
+                @if ($bayar)
+                    @if ($kembalian < 0)
+                        <div class="alert alert-danger mt-2" role="alert">
+                            Uang kurang
+                        </div>
+                    @elseif ($kembalian > 0)
+                        <button class="btn btn-success w-100 mt-2" wire:click='transaksiSelesai'>Bayar</button>
+                    @endif
+                @endif
             </div>
         </div>
+        @endif
     </div>
 </div>
